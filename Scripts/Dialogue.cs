@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class Dialogue : MonoBehaviour
 {
-    public Text textOB;
+    public TextMeshProUGUI textOB;
 
     public GameObject Activator;
 
@@ -16,13 +16,13 @@ public class Dialogue : MonoBehaviour
     public float timer = 2f;
 
     void Start(){
-        textOB.GetComponent<Text>().enabled = false;
+        textOB.GetComponent<TextMeshProUGUI>().enabled = false;
         MentalNote.SetActive(false);
     }
 
     void OnTriggerEnter(Collider other){
         if(other.gameObject.tag == "Player"){
-            textOB.GetComponent<Text>().enabled = true;
+                    textOB.GetComponent<TextMeshProUGUI>().enabled = true;
             textOB.text = dialogue.ToString();
             StartCoroutine(DisableText());
             MentalNote.SetActive(true);
@@ -31,7 +31,7 @@ public class Dialogue : MonoBehaviour
 
     IEnumerator DisableText(){
         yield return new WaitForSeconds(timer);
-        textOB.GetComponent<Text>().enabled = false;
+        textOB.GetComponent<TextMeshProUGUI>().enabled = false;
         Destroy(Activator);
     }
 

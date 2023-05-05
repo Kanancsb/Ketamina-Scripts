@@ -50,6 +50,8 @@ public class SafeBoxScript : MonoBehaviour
 
     public void Exit(){
         safeboxUI.SetActive(false);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void Update(){

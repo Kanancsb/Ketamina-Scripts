@@ -19,15 +19,12 @@ public class PickupNote : MonoBehaviour
             float dist = Vector3.Distance(Player.position, transform.position);
             if (dist < 3){
             Text.SetActive(true);
-            }
-
             if (Input.GetButtonDown("Action")){
-                if (dist < 3){
-                    Text.SetActive(false);
-                    NoteOB.SetActive(true);
-                    NoteTrigger.SetActive(true);
-                }
+                Text.SetActive(false);
+                NoteOB.SetActive(true);
+                NoteTrigger.SetActive(true);
             } 
+            }
         }
     }
 
@@ -36,6 +33,9 @@ public class PickupNote : MonoBehaviour
     }
 
     void Update(){
+        if(NoteOB.activeInHierarchy){
+            Text.SetActive(false);
+        }
         if(Input.GetButtonDown("Drop")){
                 NoteOB.SetActive(false);
             } 

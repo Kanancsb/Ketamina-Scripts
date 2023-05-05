@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class PauseGame : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class PauseGame : MonoBehaviour
     public GameObject notesMenu;
     public GameObject buttonsMenu;
     public GameObject mentalnotesMenu;
+    public GameObject optionsMenu;
 
     public GameObject note01;
     public GameObject note02;
@@ -20,8 +23,14 @@ public class PauseGame : MonoBehaviour
     public GameObject note05;
 
     public GameObject[] NoteTrigger;
+
+    Resolution[] resolutions;
     
     public AudioSource buttonSound;
+
+    public AudioMixer audioMixer;
+
+    public Dropdown resolutionDropdown;
 
     private bool on;
     private bool off;
@@ -34,8 +43,30 @@ public class PauseGame : MonoBehaviour
         notesMenu.SetActive(false);
         buttonsMenu.SetActive(false);
         mentalnotesMenu.SetActive(false);
+        optionsMenu.SetActive(false);
         off = true;
         on = false;
+
+        resolutions = Screen.resolutions;
+        
+        resolutionDropdown.ClearOptions();
+
+        List<string> options = new List<string>();
+
+        int currentResolutionIndex = 0;
+
+        for(int i=0; i < resolutions.Length; i++){
+            string option = resolutions[i].width + " x " + resolutions[i].height;
+            options.Add(option);
+
+            if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height){
+                currentResolutionIndex = i;
+            }
+        }
+
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
     }
 
     void Update(){
@@ -115,6 +146,7 @@ public class PauseGame : MonoBehaviour
             notesMenu.SetActive(false);
             buttonsMenu.SetActive(false);
             mentalnotesMenu.SetActive(false);
+            optionsMenu.SetActive(false);
         }
     }
 
@@ -128,6 +160,11 @@ public class PauseGame : MonoBehaviour
         buttonSound.Play();
         menu.SetActive(false);
         mentalnotesMenu.SetActive(true);
+    }
+
+    public void OptionsMenu(){
+        menu.SetActive(false);
+        optionsMenu.SetActive(true);
     }
 
     
@@ -189,5 +226,19 @@ public class PauseGame : MonoBehaviour
         note02.SetActive(false);
         note03.SetActive(false);
         note04.SetActive(false);
+    }
+
+    public void SetFullscreen(bool isFullscreen){
+        Screen.fullScreen = isFullscreen;
+
+    }
+
+    public void SetVolume (float volume){
+        audioMixer.SetFloat("volume", volume);
+    }
+
+    public void SetResolution(int resolutionIndex){
+        Resolution resolution = resolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
 }

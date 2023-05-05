@@ -28,10 +28,11 @@ public class OpenKey : MonoBehaviour
 				if (Player)
 				{
 					float dist = Vector3.Distance(Player.position, transform.position);
-					if (dist < 3 && rkey.activeInHierarchy == true)
+					if (dist < 3)
 					{
 						Hand.SetActive(true);
-						if (open == false)
+						if(rkey.activeInHierarchy){
+							if (open == false)
 						{
 							if (Input.GetButtonDown("Action"))
 							{
@@ -53,9 +54,12 @@ public class OpenKey : MonoBehaviour
 							}
 
 						}
-
-					}else{
-						closedDoor.Play();
+						}else{
+							if(Input.GetButtonDown("Action")){
+								Hand.SetActive(false);
+								closedDoor.Play();
+							}
+						}
 					}
 				}
 
