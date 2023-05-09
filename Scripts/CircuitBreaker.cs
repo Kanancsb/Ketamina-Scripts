@@ -7,6 +7,8 @@ public class CircuitBreaker : MonoBehaviour
 
     public GameObject[] lights;
 
+    public GameObject flashlight;
+
     public GameObject hand;
 
     public Transform Player;
@@ -24,19 +26,13 @@ public class CircuitBreaker : MonoBehaviour
     void OnMouseOver(){
         if(Player){
             float dist = Vector3.Distance(Player.position, transform.position);
-            if(dist < 3){
+            if(dist < 3 && !powerIsOn){
                 hand.SetActive(true);
                 if(!powerIsOn && Input.GetButtonDown("Action")){
                     switchClick.Play();
                     powerIsOn = true;
                     foreach(GameObject ob in lights){
                         ob.SetActive(true);
-                    }
-                }else if(powerIsOn && Input.GetButtonDown("Action")){
-                    switchClick.Play();
-                    powerIsOn = false;
-                    foreach (GameObject ob in lights){
-                        ob.SetActive(false);
                     }
                 }
             }

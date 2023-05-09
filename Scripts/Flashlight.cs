@@ -6,6 +6,7 @@ public class Flashlight : MonoBehaviour
 {
 
     public GameObject flashlight;
+    public GameObject JStrigger;
 
     public AudioSource turnOn;
     public AudioSource turnOff;
@@ -25,6 +26,13 @@ public class Flashlight : MonoBehaviour
             off = false;
             on = true;
         }else if(on && Input.GetButtonDown("F")){
+            flashlight.SetActive(false);
+            turnOff.Play();
+            off = true;
+            on = false;
+        }
+        if(!JStrigger.activeInHierarchy){
+            JStrigger.SetActive(true);
             flashlight.SetActive(false);
             turnOff.Play();
             off = true;

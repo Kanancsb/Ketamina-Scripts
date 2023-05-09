@@ -25,12 +25,12 @@ public class OpenBreakerBox : MonoBehaviour
 					if (dist < 3 && rkey.activeInHierarchy == true)
 					{
 						Hand.SetActive(true);
-
 						if (Input.GetButtonDown("Action"))
 						{
 							StartCoroutine(opening());
 							doorSound.Play();
 							Hand.SetActive(false);  
+							rkey.SetActive(false);
 						}
 
 					}

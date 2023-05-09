@@ -13,26 +13,21 @@ public class PickupKey : MonoBehaviour
 
     public Transform Player;
 
-    // Update is called once per frame
 
     void OnMouseOver(){
 
         if(Player){
             float dist = Vector3.Distance(Player.position, transform.position);
-            Hand.SetActive(true);
             if (dist < 3){
-        }
-
-        if (Input.GetButtonDown("Action")){
-            if (dist < 3){
+                Hand.SetActive(true);
+                if (Input.GetButtonDown("Action")){
                 this.GetComponent<BoxCollider>().enabled = false;
                 PickupK.Play();
                 FakeK.SetActive(false);
                 RealK.SetActive(true);
                 Hand.SetActive(false);
-
+                } 
             }
-        } 
         }
     }
 

@@ -22,7 +22,7 @@ public class Dialogue : MonoBehaviour
 
     void OnTriggerEnter(Collider other){
         if(other.gameObject.tag == "Player"){
-                    textOB.GetComponent<TextMeshProUGUI>().enabled = true;
+            textOB.GetComponent<TextMeshProUGUI>().enabled = true;
             textOB.text = dialogue.ToString();
             StartCoroutine(DisableText());
             MentalNote.SetActive(true);

@@ -12,18 +12,23 @@ public class PickupNote : MonoBehaviour
 
     public Transform Player;
 
+    public Behaviour Movement;
+    public GameObject control;
+
 
     void OnMouseOver(){
 
         if(Player){
             float dist = Vector3.Distance(Player.position, transform.position);
             if (dist < 3){
-            Text.SetActive(true);
-            if (Input.GetButtonDown("Action")){
-                Text.SetActive(false);
-                NoteOB.SetActive(true);
-                NoteTrigger.SetActive(true);
-            } 
+                Text.SetActive(true);
+                if (Input.GetButtonDown("Action")){
+                    Text.SetActive(false);
+                    NoteOB.SetActive(true);
+                    NoteTrigger.SetActive(true);
+                    Movement.enabled = false;
+                    control.SetActive(false);
+                } 
             }
         }
     }
@@ -38,6 +43,8 @@ public class PickupNote : MonoBehaviour
         }
         if(Input.GetButtonDown("Drop")){
                 NoteOB.SetActive(false);
+                Movement.enabled = true;
+                control.SetActive(true);
             } 
     }
 

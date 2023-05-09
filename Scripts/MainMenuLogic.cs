@@ -61,6 +61,8 @@ public class MainMenuLogic : MonoBehaviour
         mainMenu.GetComponent<Canvas>().enabled = false;
         buttonSound.Play();
         SceneManager.LoadScene("SampleScene");
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
 
     }
 
