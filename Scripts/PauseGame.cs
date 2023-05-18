@@ -138,6 +138,10 @@ public class PauseGame : MonoBehaviour
         buttonSound.Play();
         Time.timeScale = 1;
         SceneManager.LoadScene("MainMenu");
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Movement.enabled = true;
+        control.SetActive(true);
 
     }
 

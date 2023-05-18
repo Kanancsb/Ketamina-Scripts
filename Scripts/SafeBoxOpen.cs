@@ -9,6 +9,17 @@ public class SafeBoxOpen : MonoBehaviour
     public GameObject hand;
     public GameObject SafeBoxUI;
 
+    public Animator open;
+    public bool animate;
+
+    public GameObject SaveOB;
+
+    public void Update(){
+        if(SaveOB.activeInHierarchy){
+            StartCoroutine(opening());
+        }
+    }
+
     public void OnMouseOver(){
         if(Player){
             float distance = Vector3.Distance(Player.position, transform.position);
@@ -25,4 +36,9 @@ public class SafeBoxOpen : MonoBehaviour
         hand.SetActive(false);
     }
     
+    IEnumerator opening(){
+        open.Play("Opening");
+        animate = true;
+        yield return new WaitForSeconds(.5f);
+    }
 }

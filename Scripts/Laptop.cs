@@ -19,9 +19,22 @@ public class Laptop : MonoBehaviour
 
     public bool open;
 
+    public GameObject SaveOB;
+
     void Start(){
         open = false;
         laptopOB.SetActive(false);
+    }
+
+    public void Update(){
+        if(laptopOB.activeInHierarchy){
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            if (inputField.isFocused){
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+        }
     }
 
     public void Execute(){
@@ -29,6 +42,7 @@ public class Laptop : MonoBehaviour
             correct.Play();
             StartCoroutine(Opening());
             Debug.Log("Código correto!");
+            SaveOB.SetActive(true);
             
         }else{
             inputField.text = "";
@@ -42,24 +56,11 @@ public class Laptop : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    public void Update(){
-        if(laptopOB.activeInHierarchy){
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-
-            // Check if the input field is focused
-            if (inputField.isFocused)
-            {
-                // Unlock the cursor
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-            }
-        }
-    }
 
     IEnumerator Opening(){
         OpenCloset.Play("ClosetOpening");
         open = true;
         yield return new WaitForSeconds(.5f);
     }
+
 }

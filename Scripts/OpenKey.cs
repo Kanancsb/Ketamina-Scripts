@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class OpenKey : MonoBehaviour
 {
+		public string playerTag = "Player";
 
 		public Animator openandclose;
 
 		public bool open;
 
-		public Transform Player;
+		private Transform Player;
 
 		public GameObject rkey;
 		public GameObject Hand;
@@ -19,6 +20,12 @@ public class OpenKey : MonoBehaviour
 
 		void Start()
 		{
+			GameObject playerObject = GameObject.FindWithTag(playerTag);
+
+			if (playerObject != null)
+        {
+            Player = playerObject.GetComponent<Transform>();
+        }
 			open = false;
 		}
 

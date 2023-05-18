@@ -12,15 +12,30 @@ public class MainMenuLogic : MonoBehaviour
     private GameObject loading;
     private GameObject buttonsMenu;
 
+    public GameObject Continue;
+
     public AudioSource buttonSound;
 
     public AudioMixer audioMixer;
 
     public Dropdown resolutionDropdown;
 
+    //public SaveLoadManager saveLoad;
+
+    private SaveGameManager saveGameManager;
+
     Resolution[] resolutions;
 
     void Start(){
+
+        //saveLoad = FindObjectOfType<SaveLoadManager>();
+
+        saveGameManager = FindObjectOfType<SaveGameManager>();
+
+        if (saveGameManager != null && !saveGameManager.IsSave){
+            Continue.SetActive(false);
+        }
+
         mainMenu = GameObject.Find("MainMenuCanvas");
         optionsMenu = GameObject.Find("OptionsCanvas");
         loading = GameObject.Find("LoadingCanvas");
@@ -60,10 +75,44 @@ public class MainMenuLogic : MonoBehaviour
         loading.GetComponent<Canvas>().enabled = true;
         mainMenu.GetComponent<Canvas>().enabled = false;
         buttonSound.Play();
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("EN-US");
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        if (saveGameManager != null){
+            saveGameManager.IsSave = false;
+        }
+    }
 
+    public void ContinueButton(){
+        loading.GetComponent<Canvas>().enabled = true;
+        mainMenu.GetComponent<Canvas>().enabled = false;
+        buttonSound.Play();
+        SceneManager.LoadScene("EN-US");
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        
+    }
+
+    public void StartButtonPTBR(){
+        loading.GetComponent<Canvas>().enabled = true;
+        mainMenu.GetComponent<Canvas>().enabled = false;
+        buttonSound.Play();
+        SceneManager.LoadScene("PT-BR");
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        if (saveGameManager != null){
+            saveGameManager.IsSave = false;
+        }
+    }
+
+    public void ContinueButtonPTBR(){
+        loading.GetComponent<Canvas>().enabled = true;
+        mainMenu.GetComponent<Canvas>().enabled = false;
+        buttonSound.Play();
+        SceneManager.LoadScene("PT-BR");
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        
     }
 
     public void OptionsButton(){

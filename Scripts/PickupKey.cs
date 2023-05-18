@@ -13,6 +13,12 @@ public class PickupKey : MonoBehaviour
 
     public Transform Player;
 
+    private SaveLoadManager saveLoad;
+
+	public void Start(){
+		saveLoad = FindObjectOfType<SaveLoadManager>();
+	}
+
 
     void OnMouseOver(){
 
@@ -26,6 +32,7 @@ public class PickupKey : MonoBehaviour
                 FakeK.SetActive(false);
                 RealK.SetActive(true);
                 Hand.SetActive(false);
+                saveLoad.SaveData();
                 } 
             }
         }
@@ -33,6 +40,12 @@ public class PickupKey : MonoBehaviour
 
     void OnMouseExit(){
         Hand.SetActive(false);        
+    }
+
+    void Update(){
+        if(RealK.activeInHierarchy){
+            FakeK.SetActive(false);
+        }
     }
 
 

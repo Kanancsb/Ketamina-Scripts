@@ -8,6 +8,7 @@ public class Dialogue : MonoBehaviour
     public TextMeshProUGUI textOB;
 
     public GameObject Activator;
+    public GameObject ActivatorSave;
 
     public GameObject MentalNote;
 
@@ -32,7 +33,13 @@ public class Dialogue : MonoBehaviour
     IEnumerator DisableText(){
         yield return new WaitForSeconds(timer);
         textOB.GetComponent<TextMeshProUGUI>().enabled = false;
+        ActivatorSave.SetActive(true);
         Destroy(Activator);
     }
 
+    void Update(){
+        if(ActivatorSave.activeInHierarchy){
+            Destroy(Activator);
+        }
+    }
 }

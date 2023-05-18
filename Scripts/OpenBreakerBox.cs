@@ -40,8 +40,7 @@ public class OpenBreakerBox : MonoBehaviour
 
 		}
 
-		IEnumerator opening()
-		{
+		IEnumerator opening(){
 			padlock.Play("padlockunlock");
 			yield return new WaitForSeconds(1);
 			Destroy(padlockOB);

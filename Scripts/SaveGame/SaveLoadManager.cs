@@ -4,46 +4,53 @@ using UnityEngine;
 
 public class SaveLoadManager : MonoBehaviour
 {
-    public Transform playerTransform;
+    public string playerTag = "Player";
+    private Transform playerTransform;
     public GameObject[] activeObjects;
 
-    void Start()
-    {
-        LoadData();
-    }
+    private Vector3 playerStartPosition;
 
-    void Update()
+    private SaveGameManager saveGameManager;
+
+    private void Start()
     {
-        if (Input.GetButtonDown("Pause"))
+        GameObject playerObject = GameObject.FindWithTag(playerTag);
+
+        if (playerObject != null)
         {
-            SaveData();
+            playerTransform = playerObject.transform;
+            playerStartPosition = playerTransform.position;
         }
 
-        if (Input.GetButtonDown("Drop"))
-        {
+        saveGameManager = FindObjectOfType<SaveGameManager>();
+
+        if (saveGameManager != null && saveGameManager.IsSave){
             LoadData();
         }
+
     }
 
-    void SaveData()
+    public void SaveData()
     {
-        // Salva a posição do jogador
         PlayerPrefs.SetFloat("PlayerPosX", playerTransform.position.x);
         PlayerPrefs.SetFloat("PlayerPosY", playerTransform.position.y);
         PlayerPrefs.SetFloat("PlayerPosZ", playerTransform.position.z);
 
-        // Salva quais objetos estão ativos no jogador
         for (int i = 0; i < activeObjects.Length; i++)
         {
             PlayerPrefs.SetInt("Object" + i, activeObjects[i].activeSelf ? 1 : 0);
         }
-
         PlayerPrefs.Save();
+
+        if (saveGameManager != null){
+            saveGameManager.IsSave = true;
+        }
     }
 
-    void LoadData()
+    public void LoadData()
     {
-        // Carrega a posição do jogador
+        playerStartPosition = playerTransform.position;
+
         Vector3 playerPos = new Vector3(
             PlayerPrefs.GetFloat("PlayerPosX", 0),
             PlayerPrefs.GetFloat("PlayerPosY", 0),
@@ -52,7 +59,6 @@ public class SaveLoadManager : MonoBehaviour
 
         playerTransform.position = playerPos;
 
-        // Carrega quais objetos estão ativos no jogador
         for (int i = 0; i < activeObjects.Length; i++)
         {
             activeObjects[i].SetActive(PlayerPrefs.GetInt("Object" + i, 0) == 1);

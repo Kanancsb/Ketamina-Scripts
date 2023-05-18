@@ -20,6 +20,11 @@ public class SafeBoxScript : MonoBehaviour
     public Animator open;
     public bool animate;
 
+    public Behaviour Movement;
+    public GameObject control;
+
+    public GameObject SaveOB;
+
     public void Start(){
         safeboxUI.SetActive(false);
     }
@@ -37,6 +42,10 @@ public class SafeBoxScript : MonoBehaviour
             SafeBox.SetActive(false);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+            SaveOB.SetActive(true);
+            Movement.enabled = true;
+            control.SetActive(true);
+            
         }else{
             wrong.Play();
             textOB.text = "";
@@ -52,12 +61,16 @@ public class SafeBoxScript : MonoBehaviour
         safeboxUI.SetActive(false);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        Movement.enabled = true;
+        control.SetActive(true);
     }
 
     public void Update(){
         if(safeboxUI.activeInHierarchy){
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+            Movement.enabled = false;
+            control.SetActive(false);
         }
     }
 

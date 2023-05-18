@@ -15,6 +15,9 @@ public class PickupNote : MonoBehaviour
     public Behaviour Movement;
     public GameObject control;
 
+    void Start(){
+        NoteOB.SetActive(false);
+    }
 
     void OnMouseOver(){
 
