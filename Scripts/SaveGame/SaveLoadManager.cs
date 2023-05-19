@@ -27,7 +27,12 @@ public class SaveLoadManager : MonoBehaviour
         if (saveGameManager != null && saveGameManager.IsSave){
             LoadData();
         }
+    }
 
+    void Update(){
+        if(Input.GetButtonDown("Pause")){
+            LoadData();
+        }
     }
 
     public void SaveData()
@@ -62,6 +67,24 @@ public class SaveLoadManager : MonoBehaviour
         for (int i = 0; i < activeObjects.Length; i++)
         {
             activeObjects[i].SetActive(PlayerPrefs.GetInt("Object" + i, 0) == 1);
+        }
+    }
+
+    public void DeleteSave()
+    {
+        PlayerPrefs.DeleteKey("PlayerPosX");
+        PlayerPrefs.DeleteKey("PlayerPosY");
+        PlayerPrefs.DeleteKey("PlayerPosZ");
+
+        for (int i = 0; i < activeObjects.Length; i++)
+        {
+            PlayerPrefs.DeleteKey("Object" + i);
+        }
+        PlayerPrefs.Save();
+
+        if (saveGameManager != null)
+        {
+            saveGameManager.IsSave = false;
         }
     }
 }

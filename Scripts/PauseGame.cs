@@ -145,6 +145,17 @@ public class PauseGame : MonoBehaviour
 
     }
 
+    public void MainMenuPTBR(){
+        buttonSound.Play();
+        Time.timeScale = 1;
+        SceneManager.LoadScene("MainMenuPT-BR");
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Movement.enabled = true;
+        control.SetActive(true);
+
+    }
+
     public void Exit(){
         buttonSound.Play();
         Application.Quit();
