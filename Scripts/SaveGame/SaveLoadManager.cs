@@ -29,12 +29,6 @@ public class SaveLoadManager : MonoBehaviour
         }
     }
 
-    void Update(){
-        if(Input.GetButtonDown("Pause")){
-            LoadData();
-        }
-    }
-
     public void SaveData()
     {
         PlayerPrefs.SetFloat("PlayerPosX", playerTransform.position.x);

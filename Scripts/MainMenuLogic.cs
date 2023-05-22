@@ -15,6 +15,7 @@ public class MainMenuLogic : MonoBehaviour
     public GameObject Continue;
 
     public AudioSource buttonSound;
+    public AudioSource MenuMusic;
 
     public AudioMixer audioMixer;
 
@@ -32,8 +33,8 @@ public class MainMenuLogic : MonoBehaviour
 
         saveGameManager = FindObjectOfType<SaveGameManager>();
 
-        if (saveGameManager != null && !saveGameManager.IsSave){
-            Continue.SetActive(false);
+        if (saveGameManager != null && saveGameManager.IsSave){
+            Continue.SetActive(true);
         }
 
         mainMenu = GameObject.Find("MainMenuCanvas");
@@ -146,6 +147,14 @@ public class MainMenuLogic : MonoBehaviour
     public void SetFullscreen(bool isFullscreen){
         Screen.fullScreen = isFullscreen;
 
+    }
+
+    public void MuteMusic(){
+        if(!MenuMusic.mute){
+            MenuMusic.mute = true;
+        }else{
+            MenuMusic.mute = !MenuMusic.mute;
+        }
     }
 
     public void SetVolume (float volume){
